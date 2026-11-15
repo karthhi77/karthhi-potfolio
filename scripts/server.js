@@ -4,7 +4,7 @@ const path = require('path');
 const url = require('url');
 
 const PORT = process.env.PORT || 3000;
-const PUBLIC_DIR = __dirname;
+const PUBLIC_DIR = path.resolve(__dirname, '..');
 const IMAGES_DIR = path.join(PUBLIC_DIR, 'images');
 
 const MIME_TYPES = {
@@ -25,19 +25,17 @@ const MIME_TYPES = {
 
 function safeScanDir() {
   try {
-    const { scanDir } = require('./sync-images');
+    const { scanDir } = require(path.join(PUBLIC_DIR, 'sync-images'));
     return scanDir();
   } catch (e) {
     return [];
   }
 }
 
-// Request handler compatible with both Vercel Serverless Function and local Node HTTP
-function requestHandler(req, res) {
+const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -48,7 +46,6 @@ function requestHandler(req, res) {
     return;
   }
 
-  // API: Sync images
   if (pathname === '/api/sync' && req.method === 'GET') {
     const list = safeScanDir();
     res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -56,7 +53,6 @@ function requestHandler(req, res) {
     return;
   }
 
-  // API: Upload image
   if (pathname === '/api/upload' && req.method === 'POST') {
     let body = [];
     req.on('data', chunk => body.push(chunk));
@@ -64,23 +60,17 @@ function requestHandler(req, res) {
       try {
         const buffer = Buffer.concat(body);
         const contentType = req.headers['content-type'] || '';
-        
         if (contentType.includes('application/json')) {
           const payload = JSON.parse(buffer.toString('utf8'));
           const fileName = (payload.filename || 'upload-' + Date.now() + '.png').replace(/[^a-zA-Z0-9._-]/g, '_');
           const base64Data = payload.data.replace(/^data:image\/\w+;base64,/, '');
           const filePath = path.join(IMAGES_DIR, fileName);
-          try {
-            fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
-            safeScanDir();
-          } catch (writeErr) {
-            // Read-only filesystem on serverless
-          }
+          fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
+          safeScanDir();
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ success: true, url: 'images/' + fileName }));
           return;
         }
-
         res.writeHead(400, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: 'Unsupported format' }));
       } catch (err) {
@@ -91,7 +81,6 @@ function requestHandler(req, res) {
     return;
   }
 
-  // API: Delete image
   if (pathname === '/api/delete' && req.method === 'POST') {
     let body = [];
     req.on('data', chunk => body.push(chunk));
@@ -101,10 +90,8 @@ function requestHandler(req, res) {
         const filename = path.basename(payload.filename || '');
         const targetPath = path.join(IMAGES_DIR, filename);
         if (fs.existsSync(targetPath)) {
-          try {
-            fs.unlinkSync(targetPath);
-            safeScanDir();
-          } catch (unlinkErr) {}
+          fs.unlinkSync(targetPath);
+          safeScanDir();
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ success: true, deleted: filename }));
@@ -116,7 +103,6 @@ function requestHandler(req, res) {
     return;
   }
 
-  // Default to index.html
   if (pathname === '/' || pathname === '') {
     pathname = '/index.html';
   }
@@ -130,30 +116,16 @@ function requestHandler(req, res) {
 
   fs.stat(safePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      // Fallback to index.html for SPA routes (e.g. /#admin)
-      const indexPath = path.join(PUBLIC_DIR, 'index.html');
-      fs.stat(indexPath, (idxErr, idxStats) => {
-        if (!idxErr && idxStats.isFile()) {
-          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-          fs.createReadStream(indexPath).pipe(res);
-        } else {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end('404 Not Found');
-        }
-      });
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      res.end('404 Not Found');
       return;
     }
-
     const ext = path.extname(safePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
-
     res.writeHead(200, { 'Content-Type': contentType });
     fs.createReadStream(safePath).pipe(res);
   });
-}
-
-// Local standalone server
-const server = http.createServer(requestHandler);
+});
 
 if (require.main === module) {
   safeScanDir();
@@ -162,6 +134,4 @@ if (require.main === module) {
   });
 }
 
-// Export function handler for Vercel Serverless
-module.exports = requestHandler;
-module.exports.default = requestHandler;
+module.exports = server;

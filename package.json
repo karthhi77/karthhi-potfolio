@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "karthhi — Cinematographer | Editor Portfolio",
   "scripts": {
-    "build": "echo 'Portfolio static assets ready'",
-    "start": "node server.js",
-    "dev": "node server.js",
+    "start": "node scripts/server.js",
+    "dev": "node scripts/server.js",
     "sync": "node sync-images.js"
   },
   "keywords": [
