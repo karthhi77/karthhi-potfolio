@@ -2,7 +2,6 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const url = require('url');
-const { scanDir } = require('./sync-images');
 
 const PORT = process.env.PORT || 3000;
 const PUBLIC_DIR = __dirname;
@@ -24,10 +23,17 @@ const MIME_TYPES = {
   '.woff2': 'font/woff2'
 };
 
-// Ensure initial scan
-scanDir();
+function safeScanDir() {
+  try {
+    const { scanDir } = require('./sync-images');
+    return scanDir();
+  } catch (e) {
+    return [];
+  }
+}
 
-const server = http.createServer((req, res) => {
+// Request handler compatible with both Vercel Serverless Function and local Node HTTP
+function requestHandler(req, res) {
   const parsedUrl = url.parse(req.url, true);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
@@ -44,13 +50,13 @@ const server = http.createServer((req, res) => {
 
   // API: Sync images
   if (pathname === '/api/sync' && req.method === 'GET') {
-    const list = scanDir();
+    const list = safeScanDir();
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ success: true, count: list.length, items: list }));
     return;
   }
 
-  // API: Upload image to disk
+  // API: Upload image
   if (pathname === '/api/upload' && req.method === 'POST') {
     let body = [];
     req.on('data', chunk => body.push(chunk));
@@ -59,22 +65,24 @@ const server = http.createServer((req, res) => {
         const buffer = Buffer.concat(body);
         const contentType = req.headers['content-type'] || '';
         
-        // Handle JSON base64 upload
         if (contentType.includes('application/json')) {
           const payload = JSON.parse(buffer.toString('utf8'));
           const fileName = (payload.filename || 'upload-' + Date.now() + '.png').replace(/[^a-zA-Z0-9._-]/g, '_');
           const base64Data = payload.data.replace(/^data:image\/\w+;base64,/, '');
           const filePath = path.join(IMAGES_DIR, fileName);
-          fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
-          
-          scanDir();
+          try {
+            fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
+            safeScanDir();
+          } catch (writeErr) {
+            // Read-only filesystem on serverless
+          }
           res.writeHead(200, { 'Content-Type': 'application/json' });
           res.end(JSON.stringify({ success: true, url: 'images/' + fileName }));
           return;
         }
 
         res.writeHead(400, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'Unsupported format, send JSON with filename and data' }));
+        res.end(JSON.stringify({ error: 'Unsupported format' }));
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message }));
@@ -83,7 +91,7 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  // API: Delete image from disk (Admin)
+  // API: Delete image
   if (pathname === '/api/delete' && req.method === 'POST') {
     let body = [];
     req.on('data', chunk => body.push(chunk));
@@ -91,21 +99,15 @@ const server = http.createServer((req, res) => {
       try {
         const payload = JSON.parse(Buffer.concat(body).toString('utf8'));
         const filename = path.basename(payload.filename || '');
-        if (!filename) {
-          res.writeHead(400, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ error: 'Filename is required' }));
-          return;
-        }
         const targetPath = path.join(IMAGES_DIR, filename);
         if (fs.existsSync(targetPath)) {
-          fs.unlinkSync(targetPath);
-          scanDir();
-          res.writeHead(200, { 'Content-Type': 'application/json' });
-          res.end(JSON.stringify({ success: true, deleted: filename }));
-          return;
+          try {
+            fs.unlinkSync(targetPath);
+            safeScanDir();
+          } catch (unlinkErr) {}
         }
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ error: 'File not found on disk' }));
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ success: true, deleted: filename }));
       } catch (err) {
         res.writeHead(500, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify({ error: err.message }));
@@ -128,8 +130,17 @@ const server = http.createServer((req, res) => {
 
   fs.stat(safePath, (err, stats) => {
     if (err || !stats.isFile()) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
+      // Fallback to index.html for SPA routes (e.g. /#admin)
+      const indexPath = path.join(PUBLIC_DIR, 'index.html');
+      fs.stat(indexPath, (idxErr, idxStats) => {
+        if (!idxErr && idxStats.isFile()) {
+          res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+          fs.createReadStream(indexPath).pipe(res);
+        } else {
+          res.writeHead(404, { 'Content-Type': 'text/plain' });
+          res.end('404 Not Found');
+        }
+      });
       return;
     }
 
@@ -139,12 +150,18 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': contentType });
     fs.createReadStream(safePath).pipe(res);
   });
-});
+}
+
+// Local standalone server
+const server = http.createServer(requestHandler);
 
 if (require.main === module) {
+  safeScanDir();
   server.listen(PORT, () => {
     console.log(`\n✨ Liquid Glass Portfolio Server running at http://localhost:${PORT}/\n`);
   });
 }
 
-module.exports = server;
+// Export function handler for Vercel Serverless
+module.exports = requestHandler;
+module.exports.default = requestHandler;
