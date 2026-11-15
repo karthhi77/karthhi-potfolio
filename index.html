@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>karthhi — Liquid Glass Photography Portfolio</title>
+  <meta name="description" content="A fluid liquid-glass photography portfolio showcasing curated visual works and client-side photo uploads with persistent storage.">
+  <!-- Typography: Modern luxury small-letter display & editorial fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23000000' stroke='%23ffffff' stroke-width='3'/%3E%3Ctext x='50' y='68' font-family='serif' font-style='italic' font-size='60' fill='%23ffffff' text-anchor='middle'%3Ek%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- WebGL Liquid Fluid Background Canvas -->
+  <div id="liquid-canvas-container">
+    <canvas id="liquid-canvas"></canvas>
+  </div>
+  <!-- Authentic Frosted Glass Noise Grain -->
+  <div class="noise-overlay"></div>
+
+  <!-- Custom Viscous Liquid Cursor -->
+  <div id="liquid-cursor"></div>
+  <div id="liquid-cursor-follower"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-container">
+
+    <!-- Floating Frosted Glass Navbar -->
+    <header class="nav-wrapper">
+      <nav class="nav-bar">
+        <!-- Logo matching dildeep.dpdns.org: Circular liquid-glass disc with italic lowercase 'k' -->
+        <button class="brand-btn" id="open-about-btn" aria-label="About karthhi" title="About karthhi">
+          <div class="liquid-glass-logo">
+            <span class="logo-glyph">k</span>
+          </div>
+          <div class="brand-text-group">
+            <span class="brand-name">karthhi</span>
+            <span class="brand-sub">PORTFOLIO</span>
+          </div>
+        </button>
+
+        <div class="nav-center-links">
+          <a href="#gallery-section" class="nav-link">Gallery</a>
+          <a href="#" class="nav-link" id="nav-about-link">About</a>
+          <a href="#" class="nav-link" id="sync-folder-btn" style="display:none;">Sync</a>
+        </div>
+
+        <div class="nav-actions">
+          <div class="nav-stat">
+            <span>Archive:</span>
+            <span class="nav-stat-count" id="nav-photo-count">0</span>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+      <section class="hero-section">
+        <div class="hero-glass-card glass-panel">
+          <!-- Dual-Tone Status Pill (matching dildeep.dpdns.org REVERSE ENGINEER pill) -->
+          <div class="hero-status-pill">
+            <span class="mono-badge-white">CINEMATOGRAPHER | EDITOR</span>
+            <span class="status-pill-text">karthhi — Motion Picture &amp; Visual Direction</span>
+          </div>
+
+          <h1 class="hero-headline">
+            Frames That Tell Stories. <br>
+            <em>Light That Creates Emotion.</em>
+          </h1>
+
+          <p class="hero-subtitle">
+            I shape visual experiences through thoughtful cinematography and refined editorial storytelling.
+          </p>
+
+          <div class="hero-controls">
+            <a href="https://instagram.com/karthhiy" target="_blank" rel="noopener" class="btn-solid-white" id="hero-instagram-btn">
+              <span>Instagram</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="7" y1="17" x2="17" y2="7"/>
+                <polyline points="7 7 17 7 17 17"/>
+              </svg>
+            </a>
+
+            <a href="#showcase-16-9" class="glass-btn" id="hero-view-16-9-btn">
+              <span>View 16:9 Frames</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+
+            <a href="#showcase-9-16" class="glass-btn" id="hero-view-9-16-btn">
+              <span>View 9:16 Frames</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Disciplines Strip (like dildeep.dpdns.org ticker strip) -->
+          <div class="disciplines-strip">
+            <span class="mono-badge">DISCIPLINES</span>
+            <div class="disciplines-list">
+              <span>Cinematography</span>
+              <span class="dot">·</span>
+              <span>Film Editing</span>
+              <span class="dot">·</span>
+              <span>Color Science</span>
+              <span class="dot">·</span>
+              <span>Pacing Rhythm</span>
+              <span class="dot">·</span>
+              <span>16:9 Widescreen</span>
+              <span class="dot">·</span>
+              <span>9:16 Motion</span>
+            </div>
+          </div>
+
+          <!-- Feature Dual Glass Cards Row (like dildeep.dpdns.org RE / Secyra cards) -->
+          <div class="feature-cards-row">
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-card-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                </div>
+                <span class="mono-badge">DIRECTOR OF PHOTOGRAPHY</span>
+              </div>
+              <h3 class="feature-card-title">Cinematography</h3>
+              <p class="feature-card-desc">High-dynamic range lighting, anamorphic &amp; spherical framing, visual storytelling, and camera choreography.</p>
+            </div>
+
+            <div class="feature-card">
+              <div class="feature-card-header">
+                <div class="feature-card-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                </div>
+                <span class="mono-badge">POST-PRODUCTION</span>
+              </div>
+              <h3 class="feature-card-title">Editorial &amp; Color</h3>
+              <p class="feature-card-desc">Narrative pacing, montage rhythm, sound continuity, and custom photographic color grading in DaVinci Resolve.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Filter & Search Bar -->
+      <section class="controls-section" id="gallery-section">
+        <div class="controls-bar glass-panel">
+          <!-- Dynamic Category Tabs -->
+          <div class="category-tabs" id="category-tabs">
+            <button class="tab-btn active" data-category="All">All</button>
+            <button class="tab-btn" data-category="16:9 Cinematic">16:9 Cinematic</button>
+            <button class="tab-btn" data-category="9:16 Vertical">9:16 Vertical</button>
+          </div>
+
+          <!-- Search & Sorting -->
+          <div class="search-sort-group">
+            <div class="glass-input-wrapper">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+              </svg>
+              <input type="text" id="search-input" class="glass-input" placeholder="Search by title, tag...">
+            </div>
+
+            <select id="sort-select" class="glass-select">
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+              <option value="title">Title (A-Z)</option>
+              <option value="favorites">Favorites First</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Photography Gallery Masonry Grid -->
+      <section class="gallery-section">
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Dynamically populated photo cards -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="max-width: 1240px; margin: 0 auto 40px; padding: 0 24px; width: 100%;">
+      <div class="glass-panel" style="padding: 24px 32px; border-radius: var(--radius-md); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px;">
+        <div style="font-size: 0.9rem; color: var(--text-muted);" id="footer-brand-container">
+          <strong style="color: #fff; cursor: default;" id="footer-brand-title">karthhi Portfolio</strong>
+        </div>
+        
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="mono-badge" id="footer-admin-trigger" style="cursor: pointer; opacity: 0.35; transition: opacity 0.2s ease;" title="Curator Access">CINEMATOGRAPHY &bull; 2026</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Liquid Upload Modal -->
+  <div class="modal-backdrop" id="upload-modal-backdrop">
+    <div class="upload-modal glass-panel">
+      <div class="modal-header">
+        <h2 class="modal-title">Upload Photos to Showcase</h2>
+        <button class="modal-close-btn" id="close-upload-modal-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Liquid Dropzone -->
+      <div class="dropzone" id="liquid-dropzone">
+        <input type="file" id="file-input" class="hidden-file-input" multiple accept="image/*">
+        <div class="dropzone-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <div class="dropzone-title">Drop your photos here or click to browse</div>
+        <div class="dropzone-desc">Supports JPG, PNG, WEBP, AVIF, SVG. Stored permanently in your browser.</div>
+      </div>
+
+      <!-- Staged preview list -->
+      <div class="staged-files" id="staged-files-list"></div>
+
+      <!-- Submit button -->
+      <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
+        <button class="glass-btn primary" id="submit-uploads-btn" style="display: none;">
+          Save Photos
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Liquid Lightbox -->
+  <div class="lightbox-backdrop" id="lightbox-backdrop">
+    <div class="lightbox-content">
+      <!-- Lightbox Header -->
+      <div class="lightbox-header">
+        <div class="lightbox-title-group">
+          <span class="glass-badge cyan" id="lightbox-category">Category</span>
+          <h2 class="lightbox-title" id="lightbox-title">Photo Title</h2>
+          <span style="color: var(--text-dim); font-size: 0.9rem;" id="lightbox-counter">1 / 8</span>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <!-- Admin-Only Controls (Visible ONLY with admin password) -->
+          <div id="lightbox-admin-actions" style="display: none; align-items: center; gap: 8px;">
+            <button class="icon-btn-sm" id="lightbox-fav" title="Favorite">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+              </svg>
+            </button>
+            <button class="icon-btn-sm" id="lightbox-slideshow" title="Play Slideshow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </button>
+            <button class="icon-btn-sm" id="lightbox-download" title="Download Photo">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>
+            <button class="icon-btn-sm" id="lightbox-delete" title="Delete Photo" style="color: #ff5252;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Public Close Button -->
+          <button class="icon-btn-sm" id="lightbox-close" title="Close (Esc)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Viewport -->
+      <div class="lightbox-main-view">
+        <button class="lightbox-nav-btn prev" id="lightbox-prev" title="Previous (Left Arrow)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+
+        <img id="lightbox-img" class="lightbox-img" src="" alt="Showcase Preview">
+
+        <button class="lightbox-nav-btn next" id="lightbox-next" title="Next (Right Arrow)">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Lightbox Footer -->
+      <div class="lightbox-footer">
+        <div class="lightbox-exif">
+          <div class="exif-tag">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+              <line x1="16" y1="2" x2="16" y2="6"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+            <span id="lightbox-date">Date</span>
+          </div>
+          <div class="exif-tag">
+            <span id="lightbox-dimensions">Resolution</span>
+          </div>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--text-dim);">
+          Press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; color: #fff;">Esc</kbd> to exit, <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; color: #fff;">Space</kbd> for slideshow
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium About Me Modal (Cinematographer | Editor) -->
+  <div class="modal-backdrop" id="about-modal-backdrop">
+    <div class="about-modal glass-panel">
+      <!-- Top header with close & edit switch -->
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span class="mono-badge-white">PROFILE</span>
+          <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-dim);">ABOUT KARTHHI</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button type="button" class="glass-btn" id="toggle-about-edit-btn" style="padding: 6px 14px; font-size: 0.78rem;">
+            <span id="toggle-about-edit-label">Edit Details ✎</span>
+          </button>
+          <button class="modal-close-btn" id="close-about-modal-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- VIEW MODE (Default High-End Presentation) -->
+      <div id="about-view-mode" class="about-premium-container">
+        <!-- Identity Header -->
+        <div class="about-header-top">
+          <div class="about-hero-identity">
+            <div class="liquid-glass-logo" style="width: 72px; height: 72px;">
+              <span class="logo-glyph" style="font-size: 3.2rem;">k</span>
+            </div>
+            <div>
+              <h2 class="about-name-large" id="view-about-name">karthhi</h2>
+              <div class="about-role-tag" id="view-about-role">CINEMATOGRAPHER | EDITOR</div>
+            </div>
+          </div>
+          <span class="mono-badge" style="background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18);">AVAILABLE WORLDWIDE</span>
+        </div>
+
+        <!-- Prominent Instagram Highlight Card -->
+        <div class="about-instagram-card">
+          <div class="instagram-meta">
+            <div class="instagram-icon-box">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </div>
+            <div>
+              <div class="instagram-handle" id="view-about-instagram">@karthhiy</div>
+              <div class="instagram-sub">Official Instagram Profile &amp; Reels</div>
+            </div>
+          </div>
+
+          <a href="https://instagram.com/karthhiy" target="_blank" rel="noopener" id="about-instagram-link" class="btn-solid-white" style="padding: 8px 18px; font-size: 0.82rem;">
+            <span>Open Instagram</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="7" y1="17" x2="17" y2="7"/>
+              <polyline points="7 7 17 7 17 17"/>
+            </svg>
+          </a>
+        </div>
+
+        <!-- Artist Statement Box -->
+        <div class="about-bio-box">
+          <p class="about-bio-text" id="view-about-bio">
+            Cinematographer and Film Editor dedicated to visual narrative, atmospheric lighting, and precise montage rhythm. Specializing in dramatic widescreen composition (16:9) and high-impact vertical motion (9:16), I sculpt light, shadows, and temporal pacing to evoke raw cinematic presence.
+          </p>
+        </div>
+
+        <!-- Dual Specializations -->
+        <div class="about-dual-specialties">
+          <div class="specialty-item">
+            <h4>Cinematography &amp; Lighting</h4>
+            <p>16:9 cinematic framing, anamorphic aesthetics, chiaroscuro contrast, and fluid camera choreography for commercials and cinema.</p>
+          </div>
+          <div class="specialty-item">
+            <h4>Editorial &amp; Color Science</h4>
+            <p>Montage pacing, visual music rhythm, sound synchronization, and custom photographic color grading in DaVinci Resolve.</p>
+          </div>
+        </div>
+
+        <!-- Contact Row -->
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.08);">
+          <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);" id="view-about-email">
+            Inquiries: karthhi@visuals.film
+          </div>
+          <a href="mailto:karthhi@visuals.film" id="about-email-link" class="glass-btn" style="padding: 8px 16px; font-size: 0.82rem;">
+            <span>Send Email</span>
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- EDIT MODE (Form to update details anytime) -->
+      <div id="about-edit-mode" style="display: none;" class="about-premium-container">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="about-input-name" class="form-input" value="karthhi">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Role / Title</label>
+            <input type="text" id="about-input-title" class="form-input" value="Cinematographer | Editor">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Instagram Handle (e.g. @karthhiy)</label>
+          <input type="text" id="about-input-instagram" class="form-input" value="@karthhiy">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Bio &amp; Artist Statement</label>
+          <textarea id="about-input-bio" class="form-textarea">Cinematographer and Film Editor dedicated to visual narrative, atmospheric lighting, and precise montage rhythm. Specializing in dramatic widescreen composition (16:9) and high-impact vertical motion (9:16).</textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Location / Base</label>
+            <input type="text" id="about-input-location" class="form-input" value="Available Worldwide">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email / Inquiries</label>
+            <input type="email" id="about-input-email" class="form-input" value="karthhi@visuals.film">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
+          <button type="button" class="glass-btn" id="cancel-about-edit-btn">Cancel</button>
+          <button type="button" class="btn-solid-white" id="save-about-btn">Save Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Private Admin Authentication Modal -->
+  <div class="modal-backdrop" id="admin-auth-modal-backdrop">
+    <div class="admin-auth-card glass-panel">
+      <div class="admin-auth-header">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="liquid-glass-logo" style="width: 44px; height: 44px;">
+            <span class="logo-glyph" style="font-size: 1.8rem;">k</span>
+          </div>
+          <div>
+            <span class="mono-badge-white">AUTHENTICATION</span>
+            <h3 class="admin-auth-title">Curator Console</h3>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="close-admin-auth-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <p class="admin-auth-desc">Private curator access to upload photos, delete frames, export/import backups, and manage showcase security.</p>
+      <form id="admin-auth-form">
+        <div class="form-group">
+          <label class="form-label">Master Password</label>
+          <input type="password" id="admin-password-input" class="form-input" placeholder="Enter password..." autocomplete="current-password" required />
+        </div>
+        <div id="admin-auth-error" class="admin-auth-error" style="display: none;">Access denied: incorrect password.</div>
+        <div style="margin-top: 20px;">
+          <button type="submit" class="btn-solid-white" style="width: 100%; justify-content: center;">
+            <span>Unlock Console</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+          </button>
+        </div>
+      </form>
+      <div style="margin-top: 18px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-dim); text-align: center;">
+        Default key: <span style="color: var(--accent-cyan);">karthhi</span> (customizable in security settings)
+      </div>
+    </div>
+  </div>
+
+  <!-- Private Admin Console Modal -->
+  <div class="modal-backdrop" id="admin-console-backdrop">
+    <div class="admin-console-modal glass-panel">
+      <!-- Admin Header -->
+      <div class="admin-header">
+        <div class="admin-header-brand">
+          <div class="liquid-glass-logo" style="width: 52px; height: 52px;">
+            <span class="logo-glyph" style="font-size: 2.2rem;">k</span>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span class="mono-badge-cyan">● ADMIN ACTIVE</span>
+              <span class="mono-badge-white">PORTFOLIO CONTROL</span>
+            </div>
+            <h2 class="admin-title">Curator Workspace — karthhi</h2>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button class="glass-btn danger" id="admin-lock-btn" style="padding: 8px 16px; font-size: 0.8rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Lock &amp; Exit</span>
+          </button>
+          <button class="modal-close-btn" id="close-admin-console-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="admin-tabs-nav">
+        <button class="admin-tab-btn active" data-tab="upload">Upload Frames</button>
+        <button class="admin-tab-btn" data-tab="manage" id="admin-tab-manage-btn">Manage &amp; Delete (22)</button>
+        <button class="admin-tab-btn" data-tab="backup">Backup &amp; Sync</button>
+        <button class="admin-tab-btn" data-tab="security">Password &amp; Security</button>
+      </div>
+
+      <!-- Tab 1: Upload -->
+      <div class="admin-tab-content active" id="admin-tab-upload">
+        <div class="dropzone" id="admin-dropzone" style="margin-bottom: 20px;">
+          <input type="file" id="admin-file-input" class="hidden-file-input" multiple accept="image/*">
+          <div class="dropzone-icon">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/>
+              <line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+          </div>
+          <div class="dropzone-title">Drop your high-resolution photographs here</div>
+          <div class="dropzone-desc">Auto-classifies into 16:9 Widescreen or 9:16 Vertical • Supports JPG, PNG, WEBP, AVIF</div>
+        </div>
+
+        <div id="admin-staged-list" class="staged-files"></div>
+
+        <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+          <button class="btn-solid-white" id="admin-submit-upload-btn" style="display: none;">
+            <span>Save Frames to Showcase</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab 2: Manage & Delete Frames -->
+      <div class="admin-tab-content" id="admin-tab-manage">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim);" id="admin-manage-count-label">
+            Active Showcase Frames
+          </span>
+          <button class="glass-btn" id="admin-refresh-manifest-btn" style="padding: 6px 14px; font-size: 0.76rem;">
+            ⟳ Re-scan Folder
+          </button>
+        </div>
+        <div class="admin-manage-grid" id="admin-frames-list">
+          <!-- Populated dynamically with each frame and a Delete button -->
+        </div>
+      </div>
+
+      <!-- Tab 3: Backup & Sync -->
+      <div class="admin-tab-content" id="admin-tab-backup">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+          <div class="glass-panel" style="padding: 24px; border-radius: var(--radius-md);">
+            <h4 style="font-family: var(--font-heading); font-style: italic; font-size: 1.35rem; color: #fff; margin-bottom: 8px;">
+              Export Archive Backup
+            </h4>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
+              Download a complete JSON backup containing all showcase metadata, titles, favorites, and uploads.
+            </p>
+            <button class="btn-solid-white" id="admin-export-backup-btn">
+              <span>Export Archive (.json)</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="glass-panel" style="padding: 24px; border-radius: var(--radius-md);">
+            <h4 style="font-family: var(--font-heading); font-style: italic; font-size: 1.35rem; color: #fff; margin-bottom: 8px;">
+              Import Archive Backup
+            </h4>
+            <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
+              Restore your portfolio archive from a previously exported JSON backup file.
+            </p>
+            <input type="file" id="admin-import-file-input" accept=".json" style="display: none;">
+            <button class="glass-btn" id="admin-import-backup-btn">
+              <span>Choose Backup File...</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 4: Security & Password Settings -->
+      <div class="admin-tab-content" id="admin-tab-security">
+        <div style="max-width: 500px;">
+          <h4 style="font-family: var(--font-heading); font-style: italic; font-size: 1.4rem; color: #fff; margin-bottom: 8px;">
+            Change Master Password
+          </h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+            Set a new secret password to protect your curator console and photo management.
+          </p>
+
+          <form id="admin-change-pwd-form">
+            <div class="form-group">
+              <label class="form-label">New Password</label>
+              <input type="password" id="admin-new-password-input" class="form-input" placeholder="Enter new password..." required />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Confirm New Password</label>
+              <input type="password" id="admin-confirm-password-input" class="form-input" placeholder="Repeat new password..." required />
+            </div>
+            <div id="admin-pwd-msg" style="display: none; margin-bottom: 12px; font-family: var(--font-mono); font-size: 0.8rem;"></div>
+            <button type="submit" class="btn-solid-white">
+              <span>Save New Password</span>
+            </button>
+          </form>
+
+          <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);">
+            <div class="mono-badge">SHORTCUT INFORMATION</div>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+              Press <kbd style="background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 4px; color: #fff;">Cmd + Shift + A</kbd> (Mac) or <kbd style="background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 4px; color: #fff;">Ctrl + Shift + A</kbd> (Windows) anywhere on the portfolio to open this console.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules -->
+  <script src="images/manifest.js"></script>
+  <script src="js/liquid-bg.js"></script>
+  <script src="js/liquid-cursor.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/lightbox.js"></script>
+  <script src="js/uploader.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/admin.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "karthik-liquid-glass-portfolio",
+  "version": "1.0.0",
+  "description": "A high-performance, ultra-modern liquid glass photo portfolio with instant photo upload and persistent gallery",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "sync": "node sync-images.js"
+  },
+  "keywords": [
+    "portfolio",
+    "liquid-glass",
+    "glassmorphism",
+    "photo-showcase",
+    "gallery"
+  ],
+  "author": "Karthik",
+  "license": "MIT"
+}

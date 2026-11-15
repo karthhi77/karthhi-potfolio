@@ -1,0 +1,103 @@
+/* ==========================================================================
+   LIQUID CANVAS & AMBIENT EFFECTS
+   Interactive fluid canvas, noise texture, and custom liquid cursor
+   ========================================================================== */
+
+#liquid-canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+}
+
+#liquid-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Authentic Noise Grain overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Liquid Cursor */
+#liquid-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin: -14px 0 0 -14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(0, 242, 254, 0.6) 45%, rgba(121, 40, 202, 0.2) 80%, transparent 100%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: width 0.3s var(--ease-liquid), height 0.3s var(--ease-liquid), margin 0.3s var(--ease-liquid), opacity 0.3s ease;
+  will-change: transform;
+  display: none;
+}
+
+#liquid-cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 54px;
+  height: 54px;
+  margin: -27px 0 0 -27px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 242, 254, 0.45);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  pointer-events: none;
+  z-index: 9998;
+  transition: width 0.35s var(--ease-liquid), height 0.35s var(--ease-liquid), margin 0.35s var(--ease-liquid), border-color 0.3s ease, background 0.3s ease;
+  will-change: transform;
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #liquid-cursor,
+  #liquid-cursor-follower {
+    display: block;
+  }
+}
+
+/* Cursor states */
+.cursor-hover #liquid-cursor {
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  background: #ffffff;
+}
+
+.cursor-hover #liquid-cursor-follower {
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0 -40px;
+  border-color: rgba(0, 242, 254, 0.8);
+  background: rgba(0, 242, 254, 0.06);
+  box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+}
+
+.cursor-drag #liquid-cursor-follower {
+  width: 110px;
+  height: 110px;
+  margin: -55px 0 0 -55px;
+  border-color: rgba(243, 85, 218, 0.8);
+  background: rgba(243, 85, 218, 0.1);
+  box-shadow: 0 0 35px rgba(243, 85, 218, 0.4);
+}
