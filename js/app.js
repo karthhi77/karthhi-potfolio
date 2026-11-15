@@ -54,7 +54,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // 4. Initialize Gallery, Lightbox, About Me & Admin Suite
   const gallery = new GalleryController();
   window.Lightbox = new Lightbox(gallery);
-  new PhotoUploader(gallery);
+  if (window.PhotoUploader && document.getElementById('upload-modal-backdrop')) {
+    new PhotoUploader(gallery);
+  }
   window.About = new AboutController();
   window.Admin = new AdminController(gallery);
 

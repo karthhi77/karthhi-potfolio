@@ -242,14 +242,15 @@ class AdminController {
     });
 
     // 6. Admin Uploads (Dropzone & Input)
-    if (this.dropzone && this.fileInput) {
-      this.dropzone.style.cursor = 'pointer';
-      this.dropzone.addEventListener('click', (e) => {
-        if (e.target !== this.fileInput) {
-          this.fileInput.click();
-        }
+    if (this.fileInput) {
+      this.fileInput.addEventListener('change', (e) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length > 0) this.handleFiles(files);
+        this.fileInput.value = '';
       });
+    }
 
+    if (this.dropzone) {
       this.dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();
         this.dropzone.classList.add('dragover');
@@ -263,14 +264,8 @@ class AdminController {
       this.dropzone.addEventListener('drop', (e) => {
         e.preventDefault();
         this.dropzone.classList.remove('dragover');
-        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+        const files = Array.from(e.dataTransfer.files || []).filter(f => f.type.startsWith('image/'));
         if (files.length > 0) this.handleFiles(files);
-      });
-
-      this.fileInput.addEventListener('change', (e) => {
-        const files = Array.from(e.target.files);
-        if (files.length > 0) this.handleFiles(files);
-        this.fileInput.value = '';
       });
     }
 
@@ -385,14 +380,20 @@ class AdminController {
     return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = (e) => resolve(e.target.result);
+      reader.onerror = () => resolve('');
       reader.readAsDataURL(file);
     });
   }
 
   getImageDimensions(dataUrl) {
     return new Promise((resolve) => {
+      if (!dataUrl) {
+        resolve({ width: 1920, height: 1080 });
+        return;
+      }
       const img = new Image();
       img.onload = () => resolve({ width: img.naturalWidth || 1920, height: img.naturalHeight || 1080 });
+      img.onerror = () => resolve({ width: 1920, height: 1080 });
       img.src = dataUrl;
     });
   }
@@ -513,9 +514,14 @@ class AdminController {
     this.stagedFiles = [];
     this.renderStaged();
     this.submitUploadBtn.disabled = false;
+    this.submitUploadBtn.innerHTML = `<span>Save Frames to Showcase</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>`;
     this.renderManageList();
 
-    window.showToast(`✨ ${count} photograph${count > 1 ? 's' : ''} saved to showcase!`);
+    // Switch to manage tab so curator immediately sees the uploaded frame
+    const manageTab = document.querySelector('.admin-tab-btn[data-tab="manage"]');
+    if (manageTab) manageTab.click();
+
+    window.showToast(`✨ Successfully added ${count} photograph${count > 1 ? 's' : ''} to showcase!`);
   }
 
   renderManageList() {
