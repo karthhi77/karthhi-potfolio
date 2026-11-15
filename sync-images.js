@@ -37,6 +37,7 @@ const landscapeTitles = {
   'IMG_5899.jpg': 'Cinema Frame — Twilight Horizon',
   'eb007957-4dec-4560-8d7f-55a904a94fa0.jpg': 'Cinema Frame — Misty Forest Canopy',
   'IMG_7475.jpg': 'Cinema Frame — Solitude in Misty Woods',
+  'cinema-contemplation-mist.jpg': 'Cinema Frame — Contemplation in the Mist',
   'IMG_9394.jpg': 'Cinema Frame — Atmospheric Canopy'
 };
 

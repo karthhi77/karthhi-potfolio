@@ -187,7 +187,24 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-12-IMG_9847",
+    "id": "frame-12-cinema-contempla",
+    "filename": "cinema-contemplation-mist.jpg",
+    "url": "images/cinema-contemplation-mist.jpg",
+    "title": "Cinema Frame — Contemplation in the Mist",
+    "category": "16:9 Cinematic",
+    "aspect": "landscape",
+    "width": 1024,
+    "height": 474,
+    "iso": "",
+    "shutter": "",
+    "aperture": "",
+    "camera": "",
+    "date": "2026-11-15",
+    "favorited": false,
+    "isSample": false
+  },
+  {
+    "id": "frame-13-IMG_9847",
     "filename": "IMG_9847.jpg",
     "url": "images/IMG_9847.jpg",
     "title": "Vertical Still — Silhouette Branches",
@@ -204,7 +221,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-13-IMG_9391",
+    "id": "frame-14-IMG_9391",
     "filename": "IMG_9391.jpg",
     "url": "images/IMG_9391.jpg",
     "title": "Vertical Still — Verdant Light",
@@ -221,7 +238,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-14-IMG_9393",
+    "id": "frame-15-IMG_9393",
     "filename": "IMG_9393.jpg",
     "url": "images/IMG_9393.jpg",
     "title": "Vertical Still — Canopy Ascent",
@@ -238,7 +255,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-15-IMG_8927",
+    "id": "frame-16-IMG_8927",
     "filename": "IMG_8927.jpg",
     "url": "images/IMG_8927.jpg",
     "title": "Vertical Still — Architectural Pillar",
@@ -255,7 +272,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-16-IMG_8444",
+    "id": "frame-17-IMG_8444",
     "filename": "IMG_8444.jpg",
     "url": "images/IMG_8444.jpg",
     "title": "Vertical Still — Fog Ascent",
@@ -272,7 +289,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-17-IMG_6342",
+    "id": "frame-18-IMG_6342",
     "filename": "IMG_6342.jpg",
     "url": "images/IMG_6342.jpg",
     "title": "Vertical Still — Urban Tower",
@@ -289,7 +306,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-18-IMG_0125",
+    "id": "frame-19-IMG_0125",
     "filename": "IMG_0125.jpg",
     "url": "images/IMG_0125.jpg",
     "title": "Vertical Still — Night Horizon",
@@ -306,7 +323,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-19-52E6F6C6-ABB3-43",
+    "id": "frame-20-52E6F6C6-ABB3-43",
     "filename": "52E6F6C6-ABB3-438A-965E-B4E7566388FA.jpg",
     "url": "images/52E6F6C6-ABB3-438A-965E-B4E7566388FA.jpg",
     "title": "Vertical Still — Street Frame",
@@ -323,7 +340,7 @@ window.DEFAULT_MANIFEST = [
     "isSample": false
   },
   {
-    "id": "frame-20-E8382CD3-6928-44",
+    "id": "frame-21-E8382CD3-6928-44",
     "filename": "E8382CD3-6928-4492-878D-3AB1BDCDDA09.JPEG",
     "url": "images/E8382CD3-6928-4492-878D-3AB1BDCDDA09.JPEG",
     "title": "Vertical Still — Monolith Angle",
