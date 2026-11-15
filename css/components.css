@@ -616,7 +616,8 @@
 
 @media (max-width: 550px) {
   .showcase-grid-9-16 {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
 }
 
@@ -1307,6 +1308,35 @@
 }
 
 /* Toast Container */
+.site-footer {
+  max-width: 1240px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  width: 100%;
+}
+
+.footer-glass-bar {
+  padding: 24px 32px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+@media (max-width: 640px) {
+  .site-footer {
+    padding: 0 12px;
+    margin: 0 auto 28px;
+    padding-bottom: env(safe-area-inset-bottom, 12px);
+  }
+  .footer-glass-bar {
+    padding: 16px 20px;
+    gap: 12px;
+  }
+}
+
 .toast-container {
   position: fixed;
   bottom: 24px;
@@ -1356,16 +1386,27 @@
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
+  .nav-wrapper {
+    top: 14px;
+    padding: 0 16px;
+    margin-bottom: 20px;
+  }
+  
+  .nav-bar {
+    padding: 7px 14px 7px 8px;
+    gap: 12px;
+  }
+
   .hero-glass-card {
     padding: 36px 24px;
   }
   
   .hero-headline {
-    font-size: 2.6rem;
+    font-size: 2.8rem;
   }
   
   .disciplines-list {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .gallery-grid {
@@ -1384,6 +1425,269 @@
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Screens (iPhones, Android phones - max 640px) */
+@media (max-width: 640px) {
+  /* Floating Frosted Glass Header / Navbar */
+  .nav-wrapper {
+    top: 10px;
+    padding: 0 12px;
+    margin-bottom: 16px;
+  }
+
+  .nav-bar {
+    padding: 6px 14px 6px 6px;
+    gap: 8px;
+  }
+
+  .liquid-glass-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-glyph {
+    font-size: 1.75rem;
+    padding-top: 2px;
+  }
+
+  .brand-btn {
+    gap: 8px;
+  }
+
+  .brand-name {
+    font-size: 1.18rem !important;
+  }
+
+  .brand-sub {
+    font-size: 0.52rem;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-center-links {
+    gap: 2px;
+  }
+
+  .nav-link {
+    padding: 5px 10px;
+    font-size: 0.82rem;
+  }
+
+  /* Hide the cramped 'ARCHIVE: 22' badge on mobile to give pristine breathing room */
+  .nav-actions {
+    display: none !important;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 0 12px;
+    margin: 10px auto 36px;
+  }
+
+  .hero-glass-card {
+    padding: 26px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  /* Status Pill */
+  .hero-status-pill {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: var(--radius-md);
+    width: 100%;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .mono-badge-white {
+    font-size: 0.64rem;
+    padding: 3px 8px;
+    white-space: nowrap;
+    letter-spacing: 0.06em;
+  }
+
+  .status-pill-text {
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  /* Typography */
+  .hero-headline {
+    font-size: clamp(2.05rem, 7.5vw, 2.45rem);
+    line-height: 1.14;
+    margin-bottom: 16px;
+    letter-spacing: -0.015em;
+  }
+
+  .hero-subtitle {
+    font-size: 0.96rem;
+    line-height: 1.55;
+    margin-bottom: 24px;
+    font-weight: 300;
+  }
+
+  /* Full-width Stacked Mobile Hero Buttons */
+  .hero-controls {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .hero-controls .primary-pill-btn,
+  .hero-controls .ghost-pill-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 0.92rem;
+  }
+
+  /* Disciplines Strip */
+  .disciplines-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    margin-bottom: 24px;
+    border-radius: var(--radius-md);
+  }
+
+  .disciplines-list {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Gallery Sections */
+  .gallery-section {
+    padding: 0 12px;
+    margin: 0 auto 48px;
+  }
+
+  .showcase-block {
+    margin-bottom: 36px;
+  }
+
+  .showcase-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .showcase-title-group {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .showcase-title {
+    font-size: 1.25rem;
+  }
+
+  .showcase-grid-16-9 {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .showcase-grid-9-16 {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .photo-overlay {
+    padding: 12px;
+  }
+
+  .photo-title {
+    font-size: 0.98rem;
+  }
+
+  /* Modals on Mobile */
+  .about-modal {
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+    max-width: 95%;
+    max-height: 88vh;
+  }
+
+  .about-header-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .about-hero-identity {
+    gap: 14px;
+  }
+
+  .about-hero-name {
+    font-size: 1.7rem;
+  }
+
+  .about-signature-name {
+    font-size: 1.8rem;
+  }
+
+  .lightbox-content {
+    padding: 14px 12px;
+  }
+
+  .lightbox-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .lightbox-title {
+    font-size: 1.35rem;
+  }
+
+  .lightbox-nav-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .lightbox-nav-btn.prev {
+    left: 10px;
+  }
+
+  .lightbox-nav-btn.next {
+    right: 10px;
+  }
+
+  .lightbox-footer {
+    padding: 8px 14px;
+    border-radius: var(--radius-md);
+    font-size: 0.72rem;
+  }
+
+  /* Admin Modal on Mobile */
+  .admin-console-modal {
+    width: 96%;
+    padding: 20px 14px;
+    border-radius: var(--radius-md);
+  }
+
+  .admin-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .admin-tabs-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+
+  .admin-frame-row {
+    padding: 10px 12px;
   }
 }
 
