@@ -45,6 +45,9 @@
         <div class="nav-center-links">
           <a href="#gallery-section" class="nav-link">Gallery</a>
           <a href="#" class="nav-link" id="nav-about-link">About</a>
+          <button type="button" class="nav-link" id="open-upload-modal-btn" style="background: transparent; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+            <span style="color: var(--accent-cyan); font-weight: 600;">+</span> Upload
+          </button>
           <a href="#" class="nav-link" id="sync-folder-btn" style="display:none;">Sync</a>
         </div>
 
@@ -98,6 +101,11 @@
                 <polyline points="6 9 12 15 18 9"/>
               </svg>
             </a>
+
+            <button type="button" class="glass-btn" id="hero-upload-btn" style="cursor: pointer;">
+              <span style="color: var(--accent-cyan); font-weight: 600;">+</span>
+              <span>Upload Frame</span>
+            </button>
           </div>
 
           <!-- Disciplines Strip (like dildeep.dpdns.org ticker strip) -->
@@ -223,6 +231,7 @@
         </div>
         <div class="dropzone-title">Drop your photos here or click to browse</div>
         <div class="dropzone-desc">Supports JPG, PNG, WEBP, AVIF, SVG. Stored permanently in your browser.</div>
+        <button type="button" class="btn-solid-white" style="margin-top: 14px; pointer-events: none;">Choose Images...</button>
       </div>
 
       <!-- Staged preview list -->
@@ -519,6 +528,7 @@
           </div>
           <div class="dropzone-title">Drop your high-resolution photographs here</div>
           <div class="dropzone-desc">Auto-classifies into 16:9 Widescreen or 9:16 Vertical • Supports JPG, PNG, WEBP, AVIF</div>
+          <button type="button" class="btn-solid-white" style="margin-top: 14px; pointer-events: none;">Choose Images...</button>
         </div>
 
         <div id="admin-staged-list" class="staged-files"></div>

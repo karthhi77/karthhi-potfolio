@@ -243,7 +243,12 @@ class AdminController {
 
     // 6. Admin Uploads (Dropzone & Input)
     if (this.dropzone && this.fileInput) {
-      this.dropzone.addEventListener('click', () => this.fileInput.click());
+      this.dropzone.style.cursor = 'pointer';
+      this.dropzone.addEventListener('click', (e) => {
+        if (e.target !== this.fileInput) {
+          this.fileInput.click();
+        }
+      });
 
       this.dropzone.addEventListener('dragover', (e) => {
         e.preventDefault();

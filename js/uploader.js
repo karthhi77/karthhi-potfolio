@@ -44,10 +44,22 @@ class PhotoUploader {
       }
     });
 
+    // Dropzone click opens file browser
+    if (this.dropzone && this.fileInput) {
+      this.dropzone.style.cursor = 'pointer';
+      this.dropzone.addEventListener('click', (e) => {
+        if (e.target !== this.fileInput) {
+          this.fileInput.click();
+        }
+      });
+    }
+
     // File input change
     if (this.fileInput) {
       this.fileInput.addEventListener('change', (e) => {
-        this.handleFiles(Array.from(e.target.files));
+        if (e.target.files && e.target.files.length > 0) {
+          this.handleFiles(Array.from(e.target.files));
+        }
         this.fileInput.value = '';
       });
     }
