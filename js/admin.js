@@ -97,6 +97,9 @@ class AdminController {
     if (this.consoleModal) {
       this.consoleModal.classList.add('active');
       this.renderManageList();
+      if (window.About) {
+        window.About.populateForm();
+      }
     }
   }
 
@@ -230,6 +233,10 @@ class AdminController {
 
         if (target === 'manage') {
           this.renderManageList();
+        }
+
+        if (target === 'profile' && window.About) {
+          window.About.populateForm();
         }
       });
     });

@@ -9,9 +9,6 @@ class AboutController {
     this.modalBackdrop = document.getElementById('about-modal-backdrop');
     this.openBtn = document.getElementById('open-about-btn');
     this.closeBtn = document.getElementById('close-about-modal-btn');
-    this.toggleEditBtn = document.getElementById('toggle-about-edit-btn');
-    this.toggleEditLabel = document.getElementById('toggle-about-edit-label');
-    this.cancelEditBtn = document.getElementById('cancel-about-edit-btn');
     this.saveBtn = document.getElementById('save-about-btn');
 
     this.viewModeEl = document.getElementById('about-view-mode');
@@ -136,7 +133,7 @@ class AboutController {
       });
     }
 
-    // Save
+    // Save Profile (inside Admin Console)
     if (this.saveBtn) {
       this.saveBtn.addEventListener('click', () => {
         const cleanInstagram = this.instagramInput ? this.instagramInput.value.trim() : this.data.instagram;
@@ -151,33 +148,15 @@ class AboutController {
           email: this.emailInput ? this.emailInput.value.trim() : this.data.email
         });
 
-        this.setEditMode(false);
         if (window.showToast) {
-          window.showToast('✨ Profile & Instagram details saved!');
+          window.showToast('✨ Curator profile & bio saved successfully!');
         }
       });
     }
   }
 
-  setEditMode(editing) {
-    this.isEditing = editing;
-    if (this.viewModeEl && this.editModeEl) {
-      if (this.isEditing) {
-        this.populateForm();
-        this.viewModeEl.style.display = 'none';
-        this.editModeEl.style.display = 'flex';
-        if (this.toggleEditLabel) this.toggleEditLabel.textContent = 'View Mode 👁';
-      } else {
-        this.viewModeEl.style.display = 'flex';
-        this.editModeEl.style.display = 'none';
-        if (this.toggleEditLabel) this.toggleEditLabel.textContent = 'Edit Details ✎';
-      }
-    }
-  }
-
   open() {
     if (this.modalBackdrop) {
-      this.setEditMode(false);
       this.modalBackdrop.classList.add('active');
     }
   }
@@ -185,7 +164,6 @@ class AboutController {
   close() {
     if (this.modalBackdrop) {
       this.modalBackdrop.classList.remove('active');
-      this.setEditMode(false);
     }
   }
 

@@ -5,16 +5,17 @@
 
 class PortfolioDB {
   constructor() {
-    this.dbName = 'LiquidPortfolio_karthhi_v2';
+    this.dbName = 'LiquidPortfolio_karthhi_v3';
     this.version = 1;
     this.db = null;
   }
 
   async init() {
-    // Purge legacy v1 database that contained stale Work #01 items
+    // Purge legacy databases
     try {
       if (window.indexedDB) {
         window.indexedDB.deleteDatabase('LiquidPortfolioDB');
+        window.indexedDB.deleteDatabase('LiquidPortfolio_karthhi_v2');
       }
     } catch (e) {
       console.warn('Legacy DB cleanup notice:', e);

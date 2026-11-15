@@ -329,23 +329,18 @@
   <!-- Premium About Me Modal (Cinematographer | Editor) -->
   <div class="modal-backdrop" id="about-modal-backdrop">
     <div class="about-modal glass-panel">
-      <!-- Top header with close & edit switch -->
+      <!-- Top header with close -->
       <div class="modal-header">
         <div style="display: flex; align-items: center; gap: 12px;">
           <span class="mono-badge-white">PROFILE</span>
           <span style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.1em; color: var(--text-dim);">ABOUT KARTHHI</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 10px;">
-          <button type="button" class="glass-btn" id="toggle-about-edit-btn" style="padding: 6px 14px; font-size: 0.78rem;">
-            <span id="toggle-about-edit-label">Edit Details ✎</span>
-          </button>
-          <button class="modal-close-btn" id="close-about-modal-btn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="18" y1="6" x2="6" y2="18"/>
-              <line x1="6" y1="6" x2="18" y2="18"/>
-            </svg>
-          </button>
-        </div>
+        <button class="modal-close-btn" id="close-about-modal-btn" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
       </div>
 
       <!-- VIEW MODE (Default High-End Presentation) -->
@@ -420,46 +415,6 @@
               <polyline points="22,6 12,13 2,6"/>
             </svg>
           </a>
-        </div>
-      </div>
-
-      <!-- EDIT MODE (Form to update details anytime) -->
-      <div id="about-edit-mode" style="display: none;" class="about-premium-container">
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Full Name</label>
-            <input type="text" id="about-input-name" class="form-input" value="karthhi">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Role / Title</label>
-            <input type="text" id="about-input-title" class="form-input" value="Cinematographer | Editor">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Instagram Handle (e.g. @karthhiy)</label>
-          <input type="text" id="about-input-instagram" class="form-input" value="@karthhiy">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">Bio &amp; Artist Statement</label>
-          <textarea id="about-input-bio" class="form-textarea">Cinematographer and Film Editor dedicated to visual narrative, atmospheric lighting, and precise montage rhythm. Specializing in dramatic widescreen composition (16:9) and high-impact vertical motion (9:16).</textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Location / Base</label>
-            <input type="text" id="about-input-location" class="form-input" value="Available Worldwide">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Email / Inquiries</label>
-            <input type="email" id="about-input-email" class="form-input" value="karthhi@visuals.film">
-          </div>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 10px;">
-          <button type="button" class="glass-btn" id="cancel-about-edit-btn">Cancel</button>
-          <button type="button" class="btn-solid-white" id="save-about-btn">Save Details</button>
         </div>
       </div>
     </div>
@@ -545,7 +500,8 @@
       <!-- Navigation Tabs -->
       <div class="admin-tabs-nav">
         <button class="admin-tab-btn active" data-tab="upload">Upload Frames</button>
-        <button class="admin-tab-btn" data-tab="manage" id="admin-tab-manage-btn">Manage &amp; Delete (22)</button>
+        <button class="admin-tab-btn" data-tab="manage" id="admin-tab-manage-btn">Manage &amp; Delete (20)</button>
+        <button class="admin-tab-btn" data-tab="profile">Edit Profile &amp; Bio</button>
         <button class="admin-tab-btn" data-tab="backup">Backup &amp; Sync</button>
         <button class="admin-tab-btn" data-tab="security">Password &amp; Security</button>
       </div>
@@ -589,6 +545,61 @@
         </div>
         <div class="admin-manage-grid" id="admin-frames-list">
           <!-- Populated dynamically with each frame and a Delete button -->
+        </div>
+      </div>
+
+      <!-- Tab: Edit Profile & Bio (Private Curator Control) -->
+      <div class="admin-tab-content" id="admin-tab-profile">
+        <div class="glass-panel" style="padding: 28px; border-radius: var(--radius-md); max-width: 740px;">
+          <div style="margin-bottom: 22px;">
+            <h4 style="font-family: var(--font-heading); font-style: italic; font-size: 1.45rem; color: #fff; margin-bottom: 6px;">
+              Curator Profile &amp; Bio Settings
+            </h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+              Update your public display name, editorial role, Instagram handle, bio, and inquiry channels. Changes reflect instantly across the portfolio.
+            </p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Full Name</label>
+              <input type="text" id="about-input-name" class="form-input" value="karthhi">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Role / Title</label>
+              <input type="text" id="about-input-title" class="form-input" value="Cinematographer | Editor">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Instagram Handle (e.g. @karthhiy)</label>
+            <input type="text" id="about-input-instagram" class="form-input" value="@karthhiy">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Bio &amp; Artist Statement</label>
+            <textarea id="about-input-bio" class="form-textarea" rows="4">Cinematographer and Film Editor dedicated to visual narrative, atmospheric lighting, and precise montage rhythm. Specializing in dramatic widescreen composition (16:9) and high-impact vertical motion (9:16).</textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Location / Base</label>
+              <input type="text" id="about-input-location" class="form-input" value="Available Worldwide">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email / Inquiries</label>
+              <input type="email" id="about-input-email" class="form-input" value="karthhi@visuals.film">
+            </div>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 18px;">
+            <button type="button" class="btn-solid-white" id="save-about-btn" style="padding: 10px 24px; cursor: pointer;">
+              <span>Save Profile Details</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
