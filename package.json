@@ -1,20 +1,19 @@
 {
-  "name": "karthik-liquid-glass-portfolio",
+  "name": "karthhi-portfolio",
   "version": "1.0.0",
-  "description": "A high-performance, ultra-modern liquid glass photo portfolio with instant photo upload and persistent gallery",
-  "main": "server.js",
+  "description": "karthhi — Cinematographer | Editor Portfolio",
   "scripts": {
+    "build": "echo 'Portfolio static assets ready'",
     "start": "node server.js",
     "dev": "node server.js",
     "sync": "node sync-images.js"
   },
   "keywords": [
     "portfolio",
-    "liquid-glass",
-    "glassmorphism",
-    "photo-showcase",
-    "gallery"
+    "cinematography",
+    "editor",
+    "liquid-glass"
   ],
-  "author": "Karthik",
+  "author": "karthhi",
   "license": "MIT"
 }

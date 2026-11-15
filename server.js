@@ -141,6 +141,10 @@ const server = http.createServer((req, res) => {
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`\n✨ Liquid Glass Portfolio Server running at http://localhost:${PORT}/\n`);
-});
+if (require.main === module) {
+  server.listen(PORT, () => {
+    console.log(`\n✨ Liquid Glass Portfolio Server running at http://localhost:${PORT}/\n`);
+  });
+}
+
+module.exports = server;
